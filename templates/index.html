@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#EDF0F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1320" media="(prefers-color-scheme: dark)">
+<title>Mattelab 8</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='2' y='6' width='13' height='13' rx='3' fill='%234F6BFF'/><rect x='17' y='6' width='13' height='13' rx='3' fill='%23FFB330'/><rect x='9.5' y='17' width='13' height='13' rx='3' fill='%2314B08A'/></svg>">
+<link rel="preload" href="{{ url_for('static', filename='fonts/lexend-latin.woff2') }}" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="appbar">
+  <a class="brand" href="#/" aria-label="Mattelab, til forsiden">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="6" width="13" height="13" rx="3" class="lg-a"/><rect x="17" y="6" width="13" height="13" rx="3" class="lg-b"/><rect x="9.5" y="17" width="13" height="13" rx="3" class="lg-c"/></svg>
+    <span>Mattelab</span>
+  </a>
+  <span class="appbar-grade">8. trinn</span>
+</header>
+
+<main class="page">
+
+  <section id="home" class="view" hidden>
+    <div class="hero">
+      <h1>Hva vil du øve på?</h1>
+      <p class="lede">Hver ferdighet starter med et eksempel. Så løser dere én sammen, og til slutt prøver du selv. Du kan bytte når du vil.</p>
+      <div class="mix-row">
+        <a class="btn" href="#/mix" id="mix-btn">Blandet repetisjon</a>
+        <span id="mix-note" class="muted"></span>
+      </div>
+    </div>
+    <h2 class="section-title">Høsthalvåret</h2>
+    <ol id="topics" class="topics"></ol>
+    <footer class="foot">
+      <p class="muted small" id="plan-note"></p>
+      <button type="button" class="linklike small" id="reset">Nullstill fremgangen på denne enheten</button>
+    </footer>
+  </section>
+
+  <section id="topic" class="view" hidden>
+    <a class="back" href="#/"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12 4l-6 6 6 6"/></svg>Alle temaer</a>
+    <div class="topic-head">
+      <div id="t-glyph" class="t-glyph big" aria-hidden="true"></div>
+      <div>
+        <h1 id="t-title"></h1>
+        <p id="t-weeks" class="muted"></p>
+      </div>
+    </div>
+    <div id="t-aims" class="aims"></div>
+    <ol id="skills" class="skills"></ol>
+  </section>
+
+  <section id="practice" class="view" hidden>
+    <div class="p-top">
+      <a class="back" id="p-back" href="#/"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12 4l-6 6 6 6"/></svg><span>Tilbake</span></a>
+      <div class="p-id">
+        <h1 id="p-skill"></h1>
+        <p id="p-level" class="muted"></p>
+      </div>
+      <div id="p-track" class="track" aria-label="Dine siste fem svar"></div>
+    </div>
+
+    <div class="switch-row">
+      <div class="switch" id="switch" role="group" aria-label="Hvordan vil du jobbe med oppgaven?">
+        <span class="switch-pill" aria-hidden="true"></span>
+        <button type="button" data-mode="worked">Vis meg</button>
+        <button type="button" data-mode="guided">Hjelp meg</button>
+        <button type="button" data-mode="solo">Jeg prøver selv</button>
+      </div>
+      <p class="mode-line"><span id="p-mode" class="mode"></span><span id="p-modehelp"></span></p>
+    </div>
+
+    <div class="p-grid">
+      <section class="stage" aria-label="Oppgaven">
+        <p id="p-task" class="task"></p>
+        <div id="p-expr" class="expr"></div>
+        <figure id="board" class="board" aria-label="Tegning av oppgaven"></figure>
+      </section>
+
+      <section class="work" aria-label="Utregning">
+        <ol id="ledger" class="ledger"></ol>
+        <p id="coach" class="coach"></p>
+        <div id="feedback" class="feedback" role="status" aria-live="polite"></div>
+        <form id="answer" class="answer" hidden autocomplete="off">
+          <label id="a-q" for="a-in"></label>
+          <div class="a-row">
+            <input id="a-in" name="svar" spellcheck="false" autocapitalize="off" enterkeyhint="done">
+            <button type="submit" class="btn primary">Sjekk</button>
+          </div>
+          <div class="keys" id="keys">
+            <button type="button" data-ins="/">/</button>
+            <button type="button" data-ins="·">·</button>
+            <button type="button" data-ins="^">^</button>
+            <button type="button" data-ins="−">−</button>
+            <button type="button" data-ins=",">,</button>
+            <button type="button" data-ins="=">=</button>
+            <button type="button" data-ins="(">(</button>
+            <button type="button" data-ins=")">)</button>
+            <button type="button" data-ins="n" id="key-n" hidden>n</button>
+          </div>
+          <p id="a-fmt" class="muted small fmt"></p>
+          <p id="a-ex" class="example" hidden></p>
+        </form>
+        <div id="actions" class="actions"></div>
+      </section>
+    </div>
+  </section>
+
+</main>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

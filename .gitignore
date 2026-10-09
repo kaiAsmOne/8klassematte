@@ -74,6 +74,7 @@ docs/_build/
 # PyBuilder
 .pybuilder/
 target/
+.venv/ 
 
 # Jupyter Notebook
 .ipynb_checkpoints
